@@ -67,6 +67,41 @@ class Currencies {
     get(code) {
         return this._search(code);
     }
+
+    /**
+     * Get array of codes by code names form arguments
+     * @param {String|String[]} codes Code names
+     * @returns {Array|null} Array of names of code or NULL
+     */
+    getCodeList(...codes) {
+        const self = this;
+
+        try {
+            const names = [].concat(...codes)
+                .reduce((codeNames, code) => {
+                    if (!self.list[0][code]) {
+                        throw `Incorrect name of code`;
+                    }
+
+                    if (codeNames.indexOf(code) === -1) {
+                        codeNames.push(code);
+                    }
+                    return codeNames;
+                }, []);
+
+            const result = names.reduce((resArr, codeName) => {
+                let i;
+                for (i = 0; i < self.list.length; i++) {
+                    resArr.push(self.list[i][codeName]);
+                }
+                return resArr;
+            }, []);
+
+            return result.length ? result : null;
+        } catch (error) {
+            return null;
+        }
+    }
 }
 
 module.exports = new Currencies();
