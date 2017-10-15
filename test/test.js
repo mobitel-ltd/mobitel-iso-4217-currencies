@@ -318,4 +318,149 @@ describe('iso', function() {
             });
         });
     });
+
+    describe('iso.getCodeList', function() {
+        it('should be function', function() {
+            assert.equal(typeof iso.getCodeList, 'function');
+        });
+
+        it('should be instance of Function', function() {
+            assert.equal((iso.getCodeList instanceof Function), true);
+        });
+
+        describe('should return NULL when', function() {
+            const test = (...args) => {
+                let result;
+
+                if (args.length > 0) {
+                    result = iso.getCodeList(...args);
+                } else {
+                    result = iso.getCodeList();
+                }
+
+                assert.equal(typeof result, 'object');
+                assert.equal(result, null);
+            };
+
+            it('call without arguments', function() {
+                test();
+            });
+
+            it('call with null', function() {
+                test(null);
+            });
+
+            it('call with true', function() {
+                test(true);
+            });
+
+            it('call with false', function() {
+                test(false);
+            });
+
+            it('call with NaN', function() {
+                test(NaN);
+            });
+
+            it('call with Function', function() {
+                test(() => 10);
+            });
+
+            it('call with Number', function() {
+                test(1);
+            });
+
+            it('call with Number as 0', function() {
+                test(0);
+            });
+
+            it('call with float Number', function() {
+                test(1.2);
+            });
+
+            it('call with empty String', function() {
+                test('');
+            });
+
+            it('call with incorrect String', function() {
+                test('string');
+            });
+
+            it('call with empty Array', function() {
+                test([]);
+            });
+
+            it('call with Array with wrong element', function() {
+                test([true, 'alpha3']);
+            });
+
+            it('call with empty Object', function() {
+                test({});
+            });
+
+            it('call with Symbol', function() {
+                test(Symbol('test'));
+            });
+
+            it('call with RegExp', function() {
+                test(/^\d*$/);
+            });
+
+            it('call with multiple arguments where first is wrong', function() {
+                test(true, 'alpha3');
+            });
+        });
+
+        describe('should return objects list when', function() {
+            const test = (...code) => {
+                const result = iso.getCodeList(...code);
+
+                const arr = [].concat(...code).reduce((prev, curr) => {
+                    if (prev.indexOf(curr) === -1) {
+                        prev.push(curr);
+                    }
+                    return prev;
+                }, []);
+
+                assert.deepEqual(typeof result, 'object');
+                assert.deepEqual(Array.isArray(result), true);
+                assert.deepEqual(result.length === (iso.list.length * arr.length), true);
+                arr.forEach(val => {
+                    assert.deepEqual(result.includes(iso.list[0][val]), true);
+                });
+            };
+
+            it('call with code "alpha3"', function() {
+                test('alpha3');
+            });
+
+            it('call with code "numeric"', function() {
+                test('numeric');
+            });
+
+            it('call with code "alpha3" as array', function() {
+                test(['alpha3']);
+            });
+
+            it('call with code "numeric" as array', function() {
+                test(['numeric']);
+            });
+
+            it('call with codes "alpha3", "numeric" as array', function() {
+                test(['alpha3', 'numeric']);
+            });
+
+            it('call with codes "alpha3", "numeric" as multiple arguments', function() {
+                test('alpha3', 'numeric');
+            });
+
+            it('call with codes "alpha3", "numeric" as multiple double arguments', function() {
+                test('alpha3', 'numeric', 'alpha3', 'numeric');
+            });
+
+            it('call with codes "alpha3", "numeric" as double array', function() {
+                test(['alpha3', 'numeric'], ['alpha3', 'numeric']);
+            });
+        });
+    });
 });
