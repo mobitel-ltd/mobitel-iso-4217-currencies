@@ -152,8 +152,12 @@ describe('iso', function() {
                 test(1.2);
             });
 
-            it('call with empty Array', function() {
-                test([]);
+            it('call with empty String', function() {
+                test('');
+            });
+
+            it('call with incorrect String', function() {
+                test('string');
             });
 
             it('call with empty Array', function() {
@@ -258,8 +262,12 @@ describe('iso', function() {
                 test(1.2);
             });
 
-            it('call with empty Array', function() {
-                test([]);
+            it('call with empty String', function() {
+                test('');
+            });
+
+            it('call with incorrect String', function() {
+                test('string');
             });
 
             it('call with empty Array', function() {
