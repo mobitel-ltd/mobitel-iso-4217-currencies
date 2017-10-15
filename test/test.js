@@ -33,7 +33,10 @@ describe('iso', function() {
         });
 
         it('each element should be an object', function() {
-            assert.equal(iso.list.length > 0, true);
+            let i;
+            for (i = 0; i < iso.list.length; i++) {
+                assert.equal(typeof iso.list[i], 'object');
+            }
         });
 
         it('each element should have property "country" as String', function() {
