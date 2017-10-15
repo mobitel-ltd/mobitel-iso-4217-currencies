@@ -1,6 +1,6 @@
 {
   "name": "mobitel-iso-4217-currencies",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "NodeJs module based on ISO-4217 for validate and get basic info by currency",
   "main": "index.js",
   "directories": {
