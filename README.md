@@ -13,6 +13,7 @@ Using the module in previous versions of NodeJs does not guarantee correct works
     * [.list](#list)
     * [.validate()](#validate)
     * [.get()](#get)
+    * [.getCodeList()](#get-code-list)
 * [Testing](#testing)
 * [License](#license)
 
@@ -24,7 +25,12 @@ npm i --save mobitel-iso-4217-currencies
 [<p align="right">up to navigation</p>](#navigation)
 
 ## <a name="example">Example</a>
-> **minor** - number of decimals
+> Now for each currency exist:
+> * **country** - Country name
+> * **currency**- Currency name
+> * **alpha3** - Alphabetic code of currency
+> * **numeric** - Numeric code of currency
+> * **minor** - Number of decimals
 
 ```javascript
 const isoCurrencies = required('mobitel-iso-4217-currencies');
@@ -40,6 +46,17 @@ const data3 = isoCurrencies.get('AFG'); //=> {country: 'Afghanistan', currency: 
 const dataNum = isoCurrencies.get('004'); //=> {country: 'Afghanistan', currency: 'Afghani', alpha3: 'AFN', numeric: '971', minor: 2}
 const noData3 = isoCurrencies.get('AF'); //=> null
 const noDataNum = isoCurrencies.get('000'); //=> null
+
+// get list of codes
+const listOfCodes1 = isoCurrencies.getCodeList('alpha3'); //=> ['AFN', ...]
+const listOfCodes2 = isoCurrencies.getCodeList('alpha3', 'numeric'); //=> ['AFN', ..., '971', ...]
+const listOfCodes3 = isoCurrencies.getCodeList(['alpha3']); //=>  ['AFN', ...]
+const listOfCodes4 = isoCurrencies.getCodeList(['alpha3', 'numeric']); //=> ['AFN', ..., '971', ...]
+
+const listOfCodes5 = isoCurrencies.getCodeList('unknown'); //=> null
+const listOfCodes7 = isoCurrencies.getCodeList(['unknown']); //=>  null
+const listOfCodes6 = isoCurrencies.getCodeList('unknown', 'numeric'); //=> null
+const listOfCodes8 = isoCurrencies.getCodeList(['unknown', 'numeric']); //=> null
 ```
 [<p align="right">up to navigation</p>](#navigation)
 
@@ -82,6 +99,29 @@ const data3 = isoCurrencies.get('AFG'); //=> {country: 'Afghanistan', currency: 
 const dataNum = isoCurrencies.get('004'); //=> {country: 'Afghanistan', currency: 'Afghani', alpha3: 'AFN', numeric: '971', minor: 2}
 const noData3 = isoCurrencies.get('AF'); //=> null
 const noDataNum = isoCurrencies.get('000'); //=> null
+```
+[<p align="right">up to navigation</p>](#navigation)
+
+### <a name="get-code-list">.getCodeList(codeName[, codeName]|[codeName[, codeName]])</a>
+Arguments - `String|String[]` - country code name. Can accept variants:
+* `codeName1`
+* `codeName1, codeName2`
+* `[codeName1]`
+* `[codeName1, codeName2]`
+
+Return array of all exist codes from arguments or `null`.
+
+Example
+```javascript
+const listOfCodes1 = isoCurrencies.getCodeList('alpha3'); //=> ['AFN', ...]
+const listOfCodes2 = isoCurrencies.getCodeList('alpha3', 'numeric'); //=> ['AFN', ..., '971', ...]
+const listOfCodes3 = isoCurrencies.getCodeList(['alpha3']); //=>  ['AFN', ...]
+const listOfCodes4 = isoCurrencies.getCodeList(['alpha3', 'numeric']); //=> ['AFN', ..., '971', ...]
+
+const listOfCodes5 = isoCurrencies.getCodeList('unknown'); //=> null
+const listOfCodes7 = isoCurrencies.getCodeList(['unknown']); //=>  null
+const listOfCodes6 = isoCurrencies.getCodeList('unknown', 'numeric'); //=> null
+const listOfCodes8 = isoCurrencies.getCodeList(['unknown', 'numeric']); //=> null
 ```
 [<p align="right">up to navigation</p>](#navigation)
 
