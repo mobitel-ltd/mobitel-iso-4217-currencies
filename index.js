@@ -92,7 +92,9 @@ class Currencies {
             const result = names.reduce((resArr, codeName) => {
                 let i;
                 for (i = 0; i < self.list.length; i++) {
-                    resArr.push(self.list[i][codeName]);
+                    if (resArr.indexOf(self.list[i][codeName]) === -1) {
+                        resArr.push(self.list[i][codeName]);
+                    }
                 }
                 return resArr;
             }, []);

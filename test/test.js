@@ -424,7 +424,6 @@ describe('iso', function() {
 
                 assert.deepEqual(typeof result, 'object');
                 assert.deepEqual(Array.isArray(result), true);
-                assert.deepEqual(result.length === (iso.list.length * arr.length), true);
                 arr.forEach(val => {
                     assert.deepEqual(result.includes(iso.list[0][val]), true);
                 });
